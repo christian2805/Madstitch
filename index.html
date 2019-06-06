@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300i,400&display=swap" rel="stylesheet">
+    <meta name="description" content="MAD STITCH - SEWN ART. Unik og kreativ kunst der har fokus på genanvendelige materialer. Eksperimenterende kunst med et stærkt øje for detaljer.
+    Værkerne fortæller både en historie om indholdet men også om tilblivelsen og materialerne, og der gemmer sig en råhed bag de porøse strukturer og tråde, der udfolder sig i billederne på samme måde, som når MADSTITCH fortæller om tankerne bag ">
+    <meta name="keywords" content="ditte sorensen, ditte sørensen, ditte sorensen kunst, ditte sørensen kunst, dansk kunst, ditte sørensen dansk kunst, billedkunst, handvaerk, sytråd, finderkeepers, syning, håndarbejde, kreativ kunst, collager">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>MAD STITCH // SEWN ART</title>
+    <!--   script til at implementere google translate 1/3 -->
+    <!--
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+
+</script>
+-->
+</head>
+
+<body>
+
+
+    <video class="splash_video" id="splash_video" autoplay loop muted src="splash/Splashvideo.mp4"></video>
+    <video class="splash_video" id="splash_video2" autoplay loop muted src="splash/Splashvideo2.mp4"></video>
+    <a href="#img-container_forside">
+        <img src="img/arrow.svg" alt="pil der pejer ned" class="pilen_ned">
+    </a>
+
+    <header id="forside_header">
+        <a href="index.html">
+            <img class="logo" src="img/hvidtlogo.svg" alt="Madstitch logo"></a>
+        <div id="burger-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </header>
+    <!--  2/3   <div id="google_translate_element"></div>-->
+    <div id="index_menu_left">
+        <nav id="menu-left">
+            <a href="index.html">
+                <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+            <ul>
+                <li class="burger_li_1"><a href="gallery.html">GALLERI</a></li>
+
+
+                <li class="burger_li_2"><a href="about.html">OM</a></li>
+
+
+                <li class="burger_li_1"><a href="kontakt.html">KONTAKT</a></li>
+
+
+                <li class="burger_li_2"><a href="events.html">EVENTS</a></li>
+
+
+                <li class="burger_li_1"><a href="presse.html">PRESSE</a></li>
+
+
+                <li class="burger_li_2"><a href="https://madstitch.bigcartel.com/" target="_blank">SHOP</a></li>
+
+
+                <li class="burger_li_1"><a href="forhandlerliste.html">FORHANDLERE</a></li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div id="img-container_forside">
+        </div>
+
+        <template>
+            <div class="splash"></div>
+            <p class="billede_navn"></p>
+            <p class="billede_undernavn billede_navn"></p>
+        </template>
+
+        <div id="video-container">
+
+        </div>
+        <template class="video_template">
+            <div class="understreger_forside">
+                <p class="overskrift_video"></p>
+                <div class="understreg1_forside"></div>
+                <div class="understreg2_forside"></div>
+                <p class="tekst_video"></p>
+            </div>
+
+            <iframe class="virksomhedsvideo" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </template>
+    </main>
+    <footer>
+
+        <div id="footer_container">
+
+            <div id="some_knapper">
+                <a href="https://www.facebook.com/madstitch.sewnart/" class="facebook_link" target="_blank"> </a>
+
+                <a href="https://www.instagram.com/madstitch/" class="instagram_link" target="_blank"> </a>
+            </div>
+
+
+
+            <div id="kontaktinfo_container"></div>
+            <template id="footer_temp">
+
+                <li id="kontaktinfo_footer">
+                    <ul class="tlf"></ul>
+                    <ul class="mail"></ul>
+                </li>
+            </template>
+
+            <button id="footer_button">TILMELD NYHEDSBREV</button>
+
+        </div>
+
+        <div id="newsletter_popup">
+            <button id="popup_button2">X</button>
+
+            <p class="newsletter_txt"> Tilmeld dig i dag og få nyheder om mine seneste værker, events osv!</p>
+            <input class="newsletter_navn" type="text" value="FORNAVN">
+            <input class="newsletter_mail" type="email" value="E-MAIL">
+            <button id="popup_button1">TILMELD!</button>
+
+
+        </div>
+    </footer>
+
+    <script>
+        /////////////////// MARIAS JAVASCRIPT MOFO (forside) ///////////////////////////////
+        //  3/3   function googleTranslateElementInit() {
+        // new google.translate.TranslateElement({
+        // pageLanguage: 'da'
+        // }, 'google_translate_element');
+        // }
+
+        let video = [];
+        let forsidebillede = [];
+
+
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+
+        var burgerMenu = document.querySelector("#menu-left");
+        document.querySelector("#burger-button").addEventListener("click", openSidebar);
+        var forsideWidth = window.matchMedia("(min-width:767px)");
+
+        window.onscroll = function() {
+            testWidth()
+        };
+
+        function testWidth() {
+            if (
+                forsideWidth.matches) {
+                scrollNed()
+            }
+        }
+
+        function scrollNed() {
+            if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
+                burgerMenu.style.maxheight = "77%";
+                console.log("77");
+                burgerMenu.style.minHeight = "77%";
+            } else {
+                burgerMenu.style.maxheight = "100%";
+                burgerMenu.style.minHeight = "100%";
+                console.log("100");
+
+            }
+        }
+
+
+
+
+        function openSidebar() {
+            if (!(burgerMenu.style.display == "block")) {
+                burgerMenu.style.display = "block";
+            } else {
+                burgerMenu.style.display = "none";
+            }
+            burgerPil(this);
+
+        }
+
+        function burgerPil(x) {
+            x.classList.toggle("burger-bar-open");
+        }
+
+
+
+        var newsletterPopup = document.querySelector("#newsletter_popup");
+
+        document.querySelector("#popup_button2").addEventListener("click", openNewsletter);
+
+        document.querySelector("#footer_button").addEventListener("click", openNewsletter);
+
+        function openNewsletter() {
+
+
+
+            if (!(newsletterPopup.style.display == "block")) {
+                newsletterPopup.style.display = "block";
+
+            } else {
+                newsletterPopup.style.display = "none";
+
+            }
+
+            console.log("Newsletter Popup vises");
+        }
+
+
+        var pil = document.querySelector(".pilen_ned");
+
+        pil.scrollIntoView({
+            block: "end"
+        });
+        pil.scrollIntoView(false);
+
+        pil.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest"
+        });
+
+
+
+
+
+
+
+        async function hentJson() {
+            const url = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/forsidebillede"
+            const myJson = await fetch(url);
+            forsidebillede = await myJson.json();
+            visForsideBilleder();
+            hentJson2_2();
+        }
+
+        function visForsideBilleder() {
+            let temp = document.querySelector("template");
+            let dest = document.querySelector("#img-container_forside");
+            document.querySelector("#img-container_forside").innerHTML = "";
+            forsidebillede.forEach(splashbillede => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector(".splash").style.backgroundImage = `url(${splashbillede.billede.guid})`;
+
+                klon.querySelector(".splash").alt = splashbillede.billede_beskrivelse;
+                klon.querySelector(".billede_navn").innerHTML = splashbillede.billede_navn;
+                klon.querySelector(".billede_undernavn").innerHTML = splashbillede.billede_undernavn;
+                dest.appendChild(klon);
+            })
+
+            console.log(forsidebillede);
+        }
+
+
+
+        /////////////////// MARIAS JAVASCRIPT MOFO (forsidevideo) ///////////////////////////////
+
+        async function hentJson2_2() {
+            const urlVideo = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/video"
+            const myJsonVideo = await fetch(urlVideo);
+            video = await myJsonVideo.json();
+            visVideo();
+        }
+
+        function visVideo() {
+            let temp = document.querySelector(".video_template");
+            let dest = document.querySelector("#video-container");
+            document.querySelector("#video-container").innerHTML = "";
+            video.forEach(forsidevideo => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector("iframe").src = forsidevideo.video_link;
+                klon.querySelector(".overskrift_video").innerHTML = forsidevideo.overskrift_video;
+                klon.querySelector(".tekst_video").innerHTML = forsidevideo.tekst_video;
+                dest.appendChild(klon);
+            })
+
+            console.log("hej");
+            console.log(video);
+
+        }
+
+
+
+        /////////////////// MARIAS JAVASCRIPT MOFO SLUT ///////////////////////////////
+
+        hentJsonFooter();
+
+        async function hentJsonFooter() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson2 = await fetch(url2);
+            footer = await myJson2.json();
+            visFooter();
+        }
+
+
+        function visFooter() {
+            let temp = document.querySelector("#footer_temp");
+            let dest = document.querySelector("#kontaktinfo_container");
+            document.querySelector("#kontaktinfo_container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".tlf").innerHTML = foot.telefon;
+                klon.querySelector(".mail").innerHTML = foot.email;
+
+                dest.appendChild(klon);
+            })
+            console.log("footeren vises");
+
+        }
+    </script>
+</body>
+
+</html>

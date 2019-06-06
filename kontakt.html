@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300i,400&display=swap" rel="stylesheet">
+
+    <meta name="description" content="MAD STITCH - SEWN ART. Har du spørgsmål? Ønsker du at få lavet et custom potræ eller vil du bare i kontakt med kunstneren bag MAD STITCH, så finder du her på denne side alt relevant info du skal bruge for at kontakte hende.">
+    <meta name="keywords" content="ditte sorensen, ditte sørensen, ditte sorensen kunst, ditte sørensen kunst, dansk kunst, ditte sørensen dansk kunst, billedkunst, handvaerk, sytråd, finderkeepers, syning, håndarbejde, kreativ kunst, collager">
+
+
+    <title>KONTAKT // MAD STITCH</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <div id="burger-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+    </header>
+
+    <nav id="menu-left">
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <ul>
+            <li class="burger_li_1"><a href="gallery.html">GALLERI</a></li>
+
+
+            <li class="burger_li_2"><a href="about.html">OM</a></li>
+
+
+            <li class="burger_li_1"><a href="kontakt.html" class="valgt_linje">KONTAKT</a></li>
+
+
+            <li class="burger_li_2"><a href="events.html">EVENTS</a></li>
+
+
+            <li class="burger_li_1"><a href="presse.html">PRESSE</a></li>
+
+
+            <li class="burger_li_2"><a href="https://madstitch.bigcartel.com/" target="_blank">SHOP</a></li>
+
+
+            <li class="burger_li_1"><a href="forhandlerliste.html">FORHANDLERE</a></li>
+
+        </ul>
+    </nav>
+
+
+    <main>
+
+
+
+        <h1 id="underside_h1">KONTAKT</h1>
+
+        <div class="understreger">
+            <div class="understreg1"></div>
+            <div class="understreg2"></div>
+        </div>
+
+        <div id="infosite-container">
+
+
+        </div>
+
+        <template>
+
+            <div id="kontakt_tekst">
+                <h2 class="kontakt_h2">EMAIL</h2>
+                <h3 class="kontakt_email"></h3>
+
+                <h2 class="kontakt_h2">TELEFON</h2>
+                <h3 class="kontakt_tlf"></h3>
+
+                <h2 class="kontakt_h2">STUDIO</h2>
+                <h3 class="kontakt_vej"></h3>
+                <h3 class="kontakt_by"></h3>
+
+            </div>
+
+            <div class="kontakt_billede"></div>
+
+        </template>
+    </main>
+    <footer>
+
+        <div id="footer_container">
+
+            <div id="some_knapper">
+                <a href="https://www.facebook.com/madstitch.sewnart/" class="facebook_link" target="_blank"> </a>
+
+                <a href="https://www.instagram.com/madstitch/" class="instagram_link" target="_blank"> </a>
+            </div>
+
+
+
+            <div id="kontaktinfo_container"></div>
+            <template id="footer_temp">
+
+                <li id="kontaktinfo_footer">
+                    <ul class="tlf"></ul>
+                    <ul class="mail"></ul>
+                </li>
+            </template>
+
+            <button id="footer_button">TILMELD NYHEDSBREV</button>
+
+        </div>
+        <div id="newsletter_popup">
+            <button id="popup_button2">X</button>
+
+            <p class="newsletter_txt"> Tilmeld dig i dag og få nyheder om mine seneste værker, events osv!</p>
+            <input class="newsletter_navn" type="text" value="FORNAVN">
+            <input class="newsletter_mail" type="email" value="E-MAIL">
+            <button id="popup_button1">TILMELD!</button>
+
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJsonKontakt);
+        console.log("Kontaktsiden");
+
+        let kontaktinfo = [];
+        let informationer = [];
+
+
+        var burgerMenu = document.querySelector("#menu-left");
+        document.querySelector("#burger-button").addEventListener("click", openSidebar);
+
+        function openSidebar() {
+            console.log("nu kører det");
+
+
+            if (!(burgerMenu.style.display == "block")) {
+                burgerMenu.style.display = "block";
+            } else {
+                burgerMenu.style.display = "none";
+            }
+            burgerPil(this);
+
+        }
+
+
+        function burgerPil(x) {
+            x.classList.toggle("burger-bar-open");
+        }
+
+        var newsletterPopup = document.querySelector("#newsletter_popup");
+
+        document.querySelector("#popup_button2").addEventListener("click", openNewsletter);
+
+        document.querySelector("#footer_button").addEventListener("click", openNewsletter);
+
+        function openNewsletter() {
+
+
+
+            if (!(newsletterPopup.style.display == "block")) {
+                newsletterPopup.style.display = "block";
+
+            } else {
+                newsletterPopup.style.display = "none";
+
+            }
+
+            console.log("Newsletter Popup vises");
+        }
+
+
+
+
+
+        async function hentJsonKontakt() {
+            const url = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson = await fetch(url);
+            footer = await myJson.json();
+            visKontakt();
+        }
+
+
+        function visKontakt() {
+            let temp = document.querySelector("template");
+            let dest = document.querySelector("#infosite-container");
+            document.querySelector("#infosite-container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".kontakt_email").innerHTML = foot.email;
+                klon.querySelector(".kontakt_tlf").innerHTML = foot.telefon;
+                klon.querySelector(".kontakt_vej").innerHTML = foot.adresse1;
+                klon.querySelector(".kontakt_by").innerHTML = foot.adresse2;
+                klon.querySelector(".kontakt_billede").style.backgroundImage = `url(${foot.kontaktside_billede.guid})`;
+
+                dest.appendChild(klon);
+            })
+            console.log("Kontaktinfoen vises");
+            console.log(kontaktinfo);
+        }
+
+        hentJsonFooter();
+
+
+        async function hentJsonFooter() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson2 = await fetch(url2);
+            footer = await myJson2.json();
+            visFooter();
+        }
+
+
+        function visFooter() {
+            let temp = document.querySelector("#footer_temp");
+            let dest = document.querySelector("#kontaktinfo_container");
+            document.querySelector("#kontaktinfo_container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".tlf").innerHTML = foot.telefon;
+                klon.querySelector(".mail").innerHTML = foot.email;
+
+                dest.appendChild(klon);
+            })
+            console.log("footeren vises");
+            console.log(informationer);
+        }
+
+    </script>
+</body>
+
+</html>
