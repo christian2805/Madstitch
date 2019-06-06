@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300i,400&display=swap" rel="stylesheet">
+
+    <meta name="description" content="MAD STITCH - SEWN ART. Her er MADSTITCH, Ditte Sørensen blevet nævnt i de forskellige medier">
+
+    <meta name="keywords" content="ditte sorensen, ditte sørensen, ditte sorensen kunst, ditte sørensen kunst, dansk kunst, ditte sørensen dansk kunst, billedkunst, handvaerk, sytråd, finderkeepers, syning, håndarbejde, kreativ kunst, collager">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>PRESSE // MAD STITCH</title>
+</head>
+
+<body id="presse-body">
+    <header>
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <div id="burger-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+    </header>
+
+    <nav id="menu-left">
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <ul>
+            <li class="burger_li_1"><a href="gallery.html">GALLERI</a></li>
+
+
+            <li class="burger_li_2"><a href="about.html">OM</a></li>
+
+
+            <li class="burger_li_1"><a href="kontakt.html">KONTAKT</a></li>
+
+
+            <li class="burger_li_2"><a href="events.html">EVENTS</a></li>
+
+
+            <li class="burger_li_1"><a href="presse.html" class="valgt_linje">PRESSE</a></li>
+
+
+            <li class="burger_li_2"><a href="https://madstitch.bigcartel.com/" target="_blank">WEBSHOP</a></li>
+
+
+            <li class="burger_li_1"><a href="forhandlerliste.html">FORHANDLERE</a></li>
+
+        </ul>
+    </nav>
+
+
+    <main class="presse-wrapper">
+        <h1 id="presse_h1">PRESSE</h1>
+
+        <div class="understreger">
+            <div class="understreg1"></div>
+            <div class="understreg2"></div>
+        </div>
+        <div class="columns2">
+
+            <div id="presse-container2"></div>
+            <template class="presse_billede">
+                <div class="presse_billede2"></div>
+            </template>
+
+            <div id="presse-container">
+                <template class="presse_info">
+                    <div class="presse_container">
+                        <h2 class="presse_navn"> </h2>
+                        <p class="presse_tekst"> </p>
+                        <a class="presse_link"> >>LÆS MERE </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+
+        <div id="footer_container">
+
+            <div id="some_knapper">
+                <a href="https://www.facebook.com/madstitch.sewnart/" class="facebook_link" target="_blank"> </a>
+
+                <a href="https://www.instagram.com/madstitch/" class="instagram_link" target="_blank"> </a>
+            </div>
+
+
+
+            <div id="kontaktinfo_container"></div>
+            <template id="footer_temp">
+
+                <li id="kontaktinfo_footer">
+                    <ul class="tlf"></ul>
+                    <ul class="mail"></ul>
+                </li>
+            </template>
+
+            <button id="footer_button">TILMELD NYHEDSBREV</button>
+
+        </div>
+        <div id="newsletter_popup">
+            <button id="popup_button2">X</button>
+
+            <p class="newsletter_txt"> Tilmeld dig i dag og få nyheder om mine seneste værker, events osv!</p>
+            <input class="newsletter_navn" type="text" value="FORNAVN">
+            <input class="newsletter_mail" type="email" value="E-MAIL">
+            <button id="popup_button1">TILMELD!</button>
+
+
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJsonPresse);
+        console.log("Presse siden");
+        document.addEventListener("DOMContentLoaded", hentJsonPresseBillede);
+
+        let presse = [];
+        let side_billeder = [];
+
+
+        var burgerMenu = document.querySelector("#menu-left");
+        document.querySelector("#burger-button").addEventListener("click", openSidebar);
+
+        function openSidebar() {
+            console.log("nu kører det");
+
+
+            if (!(burgerMenu.style.display == "block")) {
+                burgerMenu.style.display = "block";
+            } else {
+                burgerMenu.style.display = "none";
+            }
+            burgerPil(this);
+
+        }
+
+
+        function burgerPil(x) {
+            x.classList.toggle("burger-bar-open");
+        }
+
+        var newsletterPopup = document.querySelector("#newsletter_popup");
+
+        document.querySelector("#popup_button2").addEventListener("click", openNewsletter);
+
+        document.querySelector("#footer_button").addEventListener("click", openNewsletter);
+
+        function openNewsletter() {
+
+
+
+            if (!(newsletterPopup.style.display == "block")) {
+                newsletterPopup.style.display = "block";
+
+            } else {
+                newsletterPopup.style.display = "none";
+
+            }
+
+            console.log("Newsletter Popup vises");
+        }
+
+
+
+        async function hentJsonPresse() {
+            const url = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/presse"
+            const myJson = await fetch(url);
+            presse = await myJson.json();
+            visPresse();
+        }
+
+
+        function visPresse() {
+            let temp = document.querySelector(".presse_info");
+            let dest = document.querySelector("#presse-container");
+            document.querySelector("#presse-container").innerHTML = "";
+            presse.forEach(pressen => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector(".presse_navn").innerHTML = pressen.overskrift;
+                klon.querySelector(".presse_tekst").innerHTML = pressen.tekst;
+                klon.querySelector(".presse_link").href = pressen.link;
+
+                dest.appendChild(klon);
+            })
+
+            console.log(presse);
+        }
+
+        async function hentJsonPresseBillede() {
+            const url = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/side_billeder"
+            const myJson = await fetch(url);
+            side_billeder = await myJson.json();
+            visPresseBillede();
+        }
+
+        function visPresseBillede() {
+            let temp = document.querySelector(".presse_billede");
+            let dest = document.querySelector("#presse-container2");
+
+            side_billeder.forEach(billede => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector(".presse_billede2").style.backgroundImage = `url(${billede.presse_billede.guid})`;
+                console.log(side_billeder);
+                console.log(billede.presse_billede.guid);
+
+                dest.appendChild(klon);
+            })
+        }
+
+
+        hentJsonFooter();
+
+
+        async function hentJsonFooter() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson2 = await fetch(url2);
+            footer = await myJson2.json();
+            visFooter();
+        }
+
+
+        function visFooter() {
+            let temp = document.querySelector("#footer_temp");
+            let dest = document.querySelector("#kontaktinfo_container");
+            document.querySelector("#kontaktinfo_container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".tlf").innerHTML = foot.telefon;
+                klon.querySelector(".mail").innerHTML = foot.email;
+
+                dest.appendChild(klon);
+            })
+            console.log("footeren vises");
+            console.log(informationer);
+        }
+    </script>
+</body>
+
+</html>

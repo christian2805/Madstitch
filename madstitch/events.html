@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300i,400&display=swap" rel="stylesheet">
+    <meta name="description" content="MAD STITCH - SEWN ART. Her kan du finde kommende, aktuelle og gamle events med MAD STITCH aka Ditte Sørensen - her kan du møde Ditte til workshops eller møde hun når hun har stande rundt omkring i Danmark">
+    <meta name="keywords" content="ditte sorensen, ditte sørensen, ditte sorensen kunst, ditte sørensen kunst, dansk kunst, ditte sørensen dansk kunst, billedkunst, handvaerk, sytråd, finderkeepers, syning, håndarbejde, kreativ kunst, collager">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>EVENTS // MAD STITCH</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <div id="burger-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+    </header>
+
+    <nav id="menu-left">
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <ul>
+            <li class="burger_li_1"><a href="gallery.html">GALLERI</a></li>
+
+
+            <li class="burger_li_2"><a href="about.html">OM</a></li>
+
+
+            <li class="burger_li_1"><a href="kontakt.html">KONTAKT</a></li>
+
+
+            <li class="burger_li_2"><a href="events.html" class="valgt_linje">EVENTS</a></li>
+
+
+            <li class="burger_li_1"><a href="presse.html">PRESSE</a></li>
+
+
+            <li class="burger_li_2"><a href="https://madstitch.bigcartel.com/" target="_blank">WEBSHOP</a></li>
+
+
+            <li class="burger_li_1"><a href="forhandlerliste.html">FORHANDLERE</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+
+        <h1 id="underside_h1">Events</h1>
+
+        <div class="understreger">
+            <div class="understreg1"></div>
+            <div class="understreg2"></div>
+        </div>
+
+
+        <!--    -----------------Filter menuen--------------------   -->
+        <div class="flex_filter">
+            <button id="filter-button"><img src="img/filtericon.svg" alt="filter">
+                FILTER:
+            </button>
+            <nav class="filtermenu">
+                <!--                <h3 id="du_ser dusersamlet">Du ser:</h3>-->
+                <h3 id="filter_tekst" class="dusersamlet">Du ser: Alle</h3>
+                <div class="filterknap">
+                    <button class="filter valgt" data-kat="alle">Alle</button>
+                    <button class="filter" data-kat="Sjaelland">Sjaelland</button>
+                    <button class="filter" data-kat="Fyn">Fyn</button>
+                    <button class="filter" data-kat="Jylland">Jylland</button>
+                </div>
+            </nav>
+        </div>
+        <!--        ------------------Filter menuen-------------------  -->
+
+
+        <div class="event_container">
+
+        </div>
+        <h2 id="underside_h2">Gamle events</h2>
+
+        <div class="understreger">
+            <div class="understreg1"></div>
+            <div class="understreg2"></div>
+        </div>
+        <div class="event_container_old"></div>
+        <template id="event_template">
+            <div class="event_single">
+                <div class="event_billede">
+                    <div class="event_tekst_box">
+                        <div id="hvid_tekst_boks">
+                            <p class="event_dato"></p>
+                            <h2 class="event_overskrift"></h2>
+                            <h3 class="event_lokation"></h3>
+
+                        </div>
+                        <p class="event_mere">>>LÆS MERE</p>
+
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+    </main>
+    <div class="popup">
+
+        <div class="indhold">
+
+
+        </div>
+    </div>
+    <footer>
+
+        <div id="footer_container">
+            <div id="some_knapper">
+                <a href="https://www.facebook.com/madstitch.sewnart/" class="facebook_link" target="_blank"> </a>
+
+                <a href="https://www.instagram.com/madstitch/" class="instagram_link" target="_blank"> </a>
+            </div>
+
+            <div id="kontaktinfo_container"></div>
+            <template id="footer_temp">
+
+                <li id="kontaktinfo_footer">
+                    <ul class="tlf"></ul>
+                    <ul class="mail"></ul>
+                </li>
+            </template>
+            <button id="footer_button">TILMELD NYHEDSBREV</button>
+        </div>
+
+        <div id="newsletter_popup">
+            <button id="popup_button2">X</button>
+
+            <p class="newsletter_txt"> Tilmeld dig i dag og få nyheder om mine seneste værker, events osv!</p>
+            <input class="newsletter_navn" type="text" value="FORNAVN">
+            <input class="newsletter_mail" type="email" value="E-MAIL">
+            <button id="popup_button1">TILMELD!</button>
+
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJson);
+        let events = [];
+        let filter = "alle";
+
+
+
+        var burgerMenu = document.querySelector("#menu-left");
+        document.querySelector("#burger-button").addEventListener("click", openSidebar);
+
+        //     var filtermenu = document.querySelector(".filtermenu");
+        // document.querySelector("#filter-button").addEventListener("click", openFilter);
+        //
+        // function openFilter() {
+        // console.log("nu kører det");
+        //
+        //
+        // if (!(filtermenu.style.display == "block")) {
+        // filtermenu.style.display = "block";
+        // } else {
+        // filtermenu.style.display = "none";
+        // }
+        //
+        // }
+
+
+
+        function openSidebar() {
+            console.log("nu kører det");
+
+
+            if (!(burgerMenu.style.display == "block")) {
+                burgerMenu.style.display = "block";
+            } else {
+                burgerMenu.style.display = "none";
+            }
+            burgerPil(this);
+
+        }
+
+
+        function burgerPil(x) {
+            x.classList.toggle("burger-bar-open");
+
+        }
+
+        var newsletterPopup = document.querySelector("#newsletter_popup");
+
+        document.querySelector("#popup_button2").addEventListener("click", openNewsletter);
+
+        document.querySelector("#footer_button").addEventListener("click", openNewsletter);
+
+        function openNewsletter() {
+
+
+
+            if (!(newsletterPopup.style.display == "block")) {
+                newsletterPopup.style.display = "block";
+
+            } else {
+                newsletterPopup.style.display = "none";
+
+            }
+
+            console.log("Newsletter Popup vises");
+        }
+
+
+
+
+
+
+        async function hentJson() {
+            const url = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/events"
+            const myJson = await fetch(url);
+            events = await myJson.json();
+            //--------------------------- sortere arrayet, så de nye posts er i toppen
+            events.sort((a, b) => {
+                return a.dato.localeCompare(b.dato);
+            })
+            console.log("url fanget")
+            visEvents();
+        }
+
+        function visEvents() {
+            let iDag = new Date();
+            let dd = iDag.getDate();
+            let mm = iDag.getMonth() + 1;
+            let yyyy = iDag.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            let myDate = yyyy + "-" + mm + "-" + dd;
+            console.log("klar til events");
+            let dest = document.querySelector(".event_container");
+            let destOld = document.querySelector(".event_container_old");
+
+            let temp = document.querySelector("#event_template");
+            //------------------------- fjerner indhold så filtrering kan finde sted
+            document.querySelector(".event_container").innerHTML = "";
+            document.querySelector(".event_container_old").innerHTML = "";
+            events.forEach(event => {
+                //------------------------- Filtrere enten efter alle posts eller en af muserne
+                if (filter == "alle" || filter == event.sted[0]) {
+                    let dato = event.dato;
+                    //----------- her kloner vi hver af elementerne i templaten 
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector(".event_overskrift").innerHTML = event.overskrift;
+                    klon.querySelector(".event_dato").innerHTML = event.dato;
+                    klon.querySelector(".event_lokation").innerHTML = event.by;
+
+                    //                klon.querySelector(".event_sted").innerHTML = event.sted;
+                    klon.querySelector(".event_billede").style.backgroundImage = `url(${event.billede.guid})`
+                    klon.querySelector(".event_billede").alt = event.billede_beskrivelse;
+                    console.log(dato + " " + myDate);
+                    if (dato < myDate) {
+                        destOld.appendChild(klon);
+                        //------------------------- sætter en listener på alle posts, da de på et tidspunkt er det sidste post i loopet.
+                        destOld.lastElementChild.addEventListener("click", () => {
+                            // kommer ind på siden alt efter dens id.
+                            visEnkeltEvent(event);
+                        });
+                    } else {
+                        dest.appendChild(klon);
+                        //------------------------- sætter en listener på alle posts, da de på et tidspunkt er det sidste post i loopet.
+                        dest.lastElementChild.addEventListener("click", () => {
+                            // kommer ind på siden alt efter dens id.
+                            visEnkeltEvent(event);
+                        });
+                    }
+                }
+            })
+        }
+
+        function visEnkeltEvent(event) {
+            document.querySelector(".indhold").innerHTML = `<article class="enkelt_event">
+<p class="popup_x">x</p>
+<p>${event.dato}</p>
+<h3>${event.by}</h3>
+<h2>${event.overskrift}</h2>
+<p>${event.lang_tekst}</p>
+<a target="_blank" href="${event.event_link}">>>Event link</a>
+</article>`;
+            document.querySelector(".popup").style.display = "block";
+            document.querySelector(".popup").addEventListener("click", close);
+            console.log("luk klar");
+        }
+
+        function close() {
+            document.querySelector(".popup").style.display = "none";
+        }
+
+        //---------------------- Her kommer filter funktion!------------------------
+        document.querySelectorAll(".filter").forEach(elm => {
+            // funktionen filtering skal startes ligegyldigt hvilken knap man trykker.
+            elm.addEventListener("click", filtering);
+        });
+
+
+        function filtering() {
+            console.log("filter-click");
+            // data- kan holde information og her siger vi den information skal være den sammen som den trykkede knaps.
+            filter = this.getAttribute("data-kat");
+            // her viser vi den valgte tekst på siden
+            document.querySelector("#filter_tekst").textContent = this.textContent;
+            // valgt classen sidder på "alle" knappen i starten, så når der trykkes på alle knapperne, skal den fjernes.
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("valgt");
+            });
+            // og sættes på den valgte knap!
+            this.classList.add("valgt");
+            console.log("valgt!", filter);
+            visEvents();
+        }
+
+
+        hentJsonFooter();
+
+        async function hentJsonFooter() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson2 = await fetch(url2);
+            footer = await myJson2.json();
+            visFooter();
+        }
+
+
+        function visFooter() {
+            let temp = document.querySelector("#footer_temp");
+            let dest = document.querySelector("#kontaktinfo_container");
+            document.querySelector("#kontaktinfo_container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".tlf").innerHTML = foot.telefon;
+                klon.querySelector(".mail").innerHTML = foot.email;
+
+                dest.appendChild(klon);
+            })
+            console.log("footeren vises");
+            console.log(informationer);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300i,400&display=swap" rel="stylesheet">
+
+    <meta name="description" content="MAD STITCH - SEWN ART. Et udpluk af MAD STITCH, Ditte Sørensens værker">
+    <meta name="keywords" content="ditte sorensen, ditte sørensen, ditte sorensen kunst, ditte sørensen kunst, dansk kunst, ditte sørensen dansk kunst, billedkunst, handvaerk, sytråd, finderkeepers, syning, håndarbejde, kreativ kunst, collager">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>GALLERI // MAD STITCH</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <div id="burger-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+    </header>
+
+    <nav id="menu-left">
+        <a href="index.html">
+            <img class="logo" src="img/logo.svg" alt="Madstitch logo"></a>
+        <ul>
+            <li class="burger_li_1"><a href="gallery.html" class="valgt_linje">GALLERI</a></li>
+
+
+            <li class="burger_li_2"><a href="about.html">OM</a></li>
+
+
+            <li class="burger_li_1"><a href="kontakt.html">KONTAKT</a></li>
+
+
+            <li class="burger_li_2"><a href="events.html">EVENTS</a></li>
+
+
+            <li class="burger_li_1"><a href="presse.html">PRESSE</a></li>
+
+
+            <li class="burger_li_2"><a href="https://madstitch.bigcartel.com/" target="_blank">WEBSHOP</a></li>
+
+
+            <li class="burger_li_1"><a href="forhandlerliste.html">FORHANDLERE</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+
+        <h1 id="underside_h1">Galleri</h1>
+        <div class="understreger">
+            <div class="understreg1"></div>
+            <div class="understreg2"></div>
+        </div>
+
+        <div class="masonry_gallery">
+            <template id="gallery_temp">
+                <img class="item">
+            </template>
+
+        </div>
+        <div class="gallery_container">
+            <div class="popup_gallery">
+
+                <div class="indhold_gallery"></div>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+
+        <div id="footer_container">
+
+            <div id="some_knapper">
+                <a href="https://www.facebook.com/madstitch.sewnart/" class="facebook_link" target="_blank"> </a>
+
+                <a href="https://www.instagram.com/madstitch/" class="instagram_link" target="_blank"> </a>
+            </div>
+
+
+
+            <div id="kontaktinfo_container"></div>
+            <template id="footer_temp">
+
+                <li id="kontaktinfo_footer">
+                    <ul class="tlf"></ul>
+                    <ul class="mail"></ul>
+                </li>
+            </template>
+
+            <button id="footer_button">TILMELD NYHEDSBREV</button>
+
+        </div>
+        <div id="newsletter_popup">
+            <button id="popup_button2">X</button>
+
+            <p class="newsletter_txt"> Tilmeld dig i dag og få nyheder om mine seneste værker, events osv!</p>
+            <input class="newsletter_navn" type="text" value="FORNAVN">
+            <input class="newsletter_mail" type="email" value="E-MAIL">
+            <button id="popup_button1">TILMELD!</button>
+
+
+        </div>
+    </footer>
+
+    <script>
+        var burgerMenu = document.querySelector("#menu-left");
+        document.querySelector("#burger-button").addEventListener("click", openSidebar);
+
+        let gallery = [];
+
+
+
+
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+        function openSidebar() {
+            console.log("nu kører det");
+
+
+            if (!(burgerMenu.style.display == "block")) {
+                burgerMenu.style.display = "block";
+            } else {
+                burgerMenu.style.display = "none";
+            }
+            burgerPil(this);
+
+        }
+
+
+        function burgerPil(x) {
+            x.classList.toggle("burger-bar-open");
+        }
+
+        var newsletterPopup = document.querySelector("#newsletter_popup");
+
+        document.querySelector("#popup_button2").addEventListener("click", openNewsletter);
+
+        document.querySelector("#footer_button").addEventListener("click", openNewsletter);
+
+        function openNewsletter() {
+
+
+
+            if (!(newsletterPopup.style.display == "block")) {
+                newsletterPopup.style.display = "block";
+
+            } else {
+                newsletterPopup.style.display = "none";
+
+            }
+
+            console.log("Newsletter Popup vises");
+        }
+
+
+
+
+        async function hentJson() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/gallery?per_page=99"
+            const myJson = await fetch(url2);
+            gallery = await myJson.json();
+            console.log("hentet Json2");
+            visgallery();
+        }
+
+        function visgallery() {
+            let temp = document.querySelector("#gallery_temp");
+            console.log(gallery);
+            let dest = document.querySelector(".masonry_gallery");
+            document.querySelector(".masonry_gallery").innerHTML = "";
+            gallery.forEach(galleri => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector(".item").src = galleri.galleri.guid;
+                klon.querySelector(".item").alt = galleri.billede_beskrivelse;
+                dest.appendChild(klon);
+                dest.lastElementChild.addEventListener("click", () => {
+                    visSingleGalleri(galleri);
+                })
+
+            })
+        }
+
+        function visSingleGalleri(galleri) {
+
+            document.querySelector(".indhold_gallery").innerHTML = `<div class="galleri_billede"><p class="popup_gal_x">X</p><img class="billede_gallery" src="${galleri.galleri.guid}" alt="${galleri.billede_beskrivelse}"></div>`;
+            document.querySelector(".popup_gallery").style.display = "block";
+            document.querySelector(".popup_gallery").addEventListener("click", close);
+
+        }
+
+        function close() {
+            document.querySelector(".popup_gallery").style.display = "none";
+        }
+
+
+        hentJsonFooter();
+
+        async function hentJsonFooter() {
+            const url2 = "http://home8.dk/kea/semester2/cms/madstitch/wordpress/wp-json/wp/v2/footer"
+            const myJson2 = await fetch(url2);
+            footer = await myJson2.json();
+            visFooter();
+        }
+
+
+        function visFooter() {
+            let temp = document.querySelector("#footer_temp");
+            let dest = document.querySelector("#kontaktinfo_container");
+            document.querySelector("#kontaktinfo_container").innerHTML = "";
+            footer.forEach(foot => {
+                let klon = temp.cloneNode(true).content;
+
+                klon.querySelector(".tlf").innerHTML = foot.telefon;
+                klon.querySelector(".mail").innerHTML = foot.email;
+
+                dest.appendChild(klon);
+            })
+            console.log("footeren vises");
+            console.log(informationer);
+        }
+    </script>
+</body>
+
+</html>
